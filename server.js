@@ -16,19 +16,15 @@ const {
   PORT: port 
 } = process.env;
 
-function catchErrors(fn){
+function catchErrors(fn) {
   return (req, res, next) => fn(req, res, next); 
 }
 
-async function indexTranslate(req, res){
-  /*const text = "Hello boy";
-  // const { xtext } = req.params;
+async function indexTranslate(req, res) {
+  const text = "Hello boy";
   const info  = req.body.info;
-  const { xinfo } = req.params; 
 
-  //const text = req.body.text; 
   console.log(info);
-  console.log(xinfo); 
   console.log(text); 
 
   let tyding_setning = ''; 
@@ -41,17 +37,22 @@ async function indexTranslate(req, res){
   }
 
   res.json({ text : text , newtext: tyding_setning});
-  */
-  res.send(`Hello ${req.body.info}`)
+  
+  //res.send(`Hello ${req.body.info}`)
   //res.json(req.body);
 }
 
 /**
  *   GET     
  */
-app.get('/', (req, res) =>{
-  res.send("Server Translate");
-  console.log("Server Translate");
+app.get('/', (req, res) => {
+  res.send("Welcome to Server Translate");
+  console.log("Welcome to Server Translate");
+});
+
+app.get('/translate', (req, res) => {
+  res.send("Plz Write some word to Server Translate");
+  console.log("Plz Write some word to Server Translate");
 });
 
 /**
