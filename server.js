@@ -1,10 +1,15 @@
 var translate = require('@iamtraction/google-translate');
+var bodyParser = require('body-parser');
 const express = require('express');
 const dotenv = require('dotenv');
 const app = express();
-// bæta cors.js 
+// add cors.js 
 
 dotenv.config();
+
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+//app.use(express.json());
 
 const { 
   HOST: hostname,
@@ -16,8 +21,16 @@ function catchErrors(fn){
 }
 
 async function indexTranslate(req, res){
-  const text = "Hello boy";
+  /*const text = "Hello boy";
+  // const { xtext } = req.params;
+  const info  = req.body.info;
+  const { xinfo } = req.params; 
+
   //const text = req.body.text; 
+  console.log(info);
+  console.log(xinfo); 
+  console.log(text); 
+
   let tyding_setning = ''; 
 
   if(text === ''){
@@ -28,6 +41,9 @@ async function indexTranslate(req, res){
   }
 
   res.json({ text : text , newtext: tyding_setning});
+  */
+  res.send(`Hello ${req.body.info}`)
+  //res.json(req.body);
 }
 
 /**
