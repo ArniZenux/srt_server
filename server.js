@@ -2,14 +2,15 @@ var translate = require('@iamtraction/google-translate');
 var bodyParser = require('body-parser');
 const express = require('express');
 const dotenv = require('dotenv');
+const cors = require('cors');
 const app = express();
-// add cors.js 
 
 dotenv.config();
 
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
-//app.use(express.json());
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 
 const { 
   HOST: hostname,
@@ -21,23 +22,22 @@ function catchErrors(fn) {
 }
 
 async function indexTranslate(req, res) {
-  const text = "Hello boy";
-  const info  = req.body.info;
-
-  console.log(info);
-  console.log(text); 
+  let info  = [ req.body.nafn ];
+  
+  console.log(info); 
 
   let tyding_setning = ''; 
 
-  if(text === ''){
+  if(info === ""){
     console.log("Engin text í textarea");
   } else {
-    let newtext = await translate(text, {from: 'en', to: 'is'});
+    let newtext = await translate(info, {from: 'en', to: 'is'});
     tyding_setning += newtext.text; 
   }
-
-  res.json({ text : text , newtext: tyding_setning});
   
+  console.log(tyding_setning); 
+
+  //res.json({ text : text , newtext: tyding_setning});
   //res.send(`Hello ${req.body.info}`)
   //res.json(req.body);
 }
@@ -51,9 +51,18 @@ app.get('/', (req, res) => {
 });
 
 app.get('/translate', (req, res) => {
-  res.send("Plz Write some word to Server Translate");
-  console.log("Plz Write some word to Server Translate");
+  res.send("Plz Write some word to Server Translate----");
+  console.log("Plz Write some word to Server Translate - console");
 });
+
+app.get('/profaTranslate', (req, res) => {
+  /*let text = 'profa';
+  let tyding_setning = 'new word for icelandic';
+  res.json({ text : text , newtext: tyding_setning});*/
+  res.send("Hello profa profa - express");
+  console.log("Hello profa profa - express  -- console");
+});
+
 
 /**
  *   POST
